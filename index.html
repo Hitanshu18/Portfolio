@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Hitanshu Prakash Patel — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Light Mode - Sunset Gradient Palette */
+    --bg-page: #FFF3E6;
+    --bg-section: #FFF8F0;
+    --text-primary: #D35400;
+    --text-muted: #FF6F61;
+    --accent: #FF4500;
+    --ease: cubic-bezier(.2,.9,.2,1);
+  }
+  body.dark{
+    /* Dark Mode */
+    --bg-page: #2B0030;
+    --bg-section: #3C003F;
+    --text-primary: #F8C8FF;
+    --text-muted: #FF99CC;
+    --accent: #FF69B4;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Poppins",system-ui,-apple-system,"Segoe UI",Roboto,Arial;
+    -webkit-font-smoothing:antialiased;
+    background: var(--bg-page);
+    color: var(--text-primary);
+    transition: background .6s var(--ease), color .45s var(--ease);
+  }
+  /* NAV */
+  .navbar{
+    position:fixed;left:12px;right:12px;top:12px;height:64px;border-radius:14px;
+    display:flex;align-items:center;justify-content:space-between;padding:10px 18px;
+    background: rgba(255,255,255,0.62);backdrop-filter: blur(8px);
+    box-shadow: 0 12px 30px rgba(211,84,0,0.08);z-index:999;
+    transition: background .35s, box-shadow .35s;
+  }
+  body.dark .navbar{ background: rgba(44,0,44,0.44); box-shadow:0 12px 40px rgba(0,0,0,0.3) }
+  .brand{display:flex;align-items:center;gap:12px}
+  .logo{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background: linear-gradient(135deg,var(--accent), var(--text-primary));
+    color:#FFF; font-weight:800;}
+  .title{font-weight:800;font-size:16px}
+  .subtitle{font-size:12px;color:var(--text-muted);font-weight:700}
+  .navlinks{display:flex;gap:12px;align-items:center}
+  .navlinks a{ text-decoration:none;color:var(--text-primary);font-weight:700;padding:8px 10px;border-radius:8px;transition:all .22s; cursor:pointer; }
+  .navlinks a:hover{ color:var(--accent); transform:translateY(-4px) }
+  /* theme switch */
+  .switch{position:relative;width:58px;height:30px;padding:4px;border-radius:999px;background:rgba(211,84,0,0.06);cursor:pointer}
+  .knob{position:absolute;left:4px;top:4px;width:22px;height:22px;border-radius:50%;background:#FFF;transition:left .28s var(--ease)}
+  body.dark .switch{ background: rgba(255,255,255,0.06) }
+  body.dark .knob{ left:32px; background:#F8C8FF }
+  /* Page container */
+  .page{max-width:1100px;margin:110px auto 70px;padding:20px}
+  section{ position:relative; margin:34px 0; padding:44px; border-radius:14px;
+    background: var(--bg-section);
+    box-shadow: 0 18px 40px rgba(211,84,0,0.06); transition: transform .5s var(--ease); }
+  section:hover{ transform: translateY(-6px) }
+  h1{font-size:40px;margin-bottom:6px}
+  .glitter{ display:inline-block;padding:6px 12px;border-radius:10px;background: linear-gradient(90deg, rgba(255,69,0,0.12), rgba(255,248,240,0.02)); font-weight:900 }
+  p.lead{font-size:18px;color:var(--text-muted);max-width:920px;margin:6px auto 0}
+  .waves{ position:absolute; inset:-12% -10% auto -10%; height:120%; pointer-events:none; z-index:0; overflow:hidden }
+  .wave{ position:absolute; width:220%; height:220%; left:-60%; top:10%;
+    background: radial-gradient(circle at 25% 30%, rgba(255,69,0,0.08), transparent 20%),
+                radial-gradient(circle at 70% 70%, rgba(211,84,0,0.06), transparent 18%);
+    filter: blur(40px); transform: translateY(0); opacity:0.95; animation: floatA 12s ease-in-out infinite alternate; }
+  .wave.layer2{ animation-duration:18s; opacity:0.6; filter: blur(56px) }
+  .wave.layer3{ animation-duration:22s; opacity:0.45; filter: blur(72px) }
+  @keyframes floatA { from{ transform: translateY(0) } to{ transform: translateY(-60px) } }
+  #home{ min-height:78vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:120px 18px}
+  .emoji-row{ display:flex; gap:16px; margin-top:18px; z-index:2 }
+  .emoji{ width:96px; height:96px; border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:40px;
+    background: rgba(211,84,0,0.04); cursor:pointer; position:relative; transition: transform .22s, box-shadow .22s }
+  .emoji:hover{ transform:translateY(-8px) scale(1.03); box-shadow: 0 18px 40px rgba(255,69,0,0.08) }
+  .popup { position:absolute; left:50%; transform:translateX(-50%) translateY(-14px);
+    top:110%; min-width:180px; max-width:260px; padding:8px 12px; border-radius:10px;
+    background: linear-gradient(90deg, var(--accent), #fff);
+    color: #2B0030; font-weight:700; text-align:center; box-shadow:0 12px 34px rgba(211,84,0,0.18);
+    font-size:14px; opacity:0; pointer-events:none; transition: opacity .28s ease, transform .28s ease;
+    transform-origin: top center; }
+  .popup.show { opacity:1; transform:translateX(-50%) translateY(0); pointer-events:auto; }
+  .about-grid{ display:flex; gap:28px; align-items:center; justify-content:center; z-index:2 }
+  .photo{ width:220px; height:220px; border-radius:50%; overflow:hidden; border:6px solid var(--accent); box-shadow:0 18px 46px rgba(211,84,0,0.12); background:#fff }
+  .photo img{ width:100%; height:100%; object-fit:cover; display:block }
+  .about-text{ max-width:720px; text-align:left }
+  .kv{ margin:8px 0; color:var(--text-muted); font-size:15px }
+  .highlight-line{ display:inline-block; padding:6px 10px; background: linear-gradient(90deg, rgba(255,69,0,0.12), rgba(255,255,255,0.02)); border-radius:8px; font-weight:800 }
+  .skill-pills{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px }
+  .pill{ padding:8px 12px; border-radius:999px; background: rgba(211,84,0,0.06); font-weight:800; color:var(--text-primary) }
+  .project-container{ display:flex; flex-wrap:wrap; gap:20px; justify-content:center; margin-top:18px }
+  .project-card{ width:360px; padding:18px; border-radius:12px; background: var(--bg-section); border:1px solid rgba(211,84,0,0.04); box-shadow:0 14px 36px rgba(211,84,0,0.06) }
+  .project-card h3{ color:var(--accent); font-size:20px }
+  .project-card p{ color:var(--text-primary); line-height:1.5 }
+  .pdf-row{ display:flex; flex-direction:column; gap:6px; align-items:flex-start; margin-top:12px }
+  .pdf-box { padding:8px 12px; border-radius:8px; background: rgba(211,84,0,0.1); color: var(--text-primary); font-weight:700; font-size:14px; display:flex; align-items:center; justify-content:space-between; max-width:320px; width:100%; }
+  .pdf-box a { text-decoration:none; color:inherit; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .pdf-box button { background:transparent; border:none; color:red; font-weight:800; cursor:pointer; margin-left:8px; font-size:14px; }
+  body.dark .pdf-box { background: rgba(255,255,255,0.1); color:#F8C8FF; }
+  .contact-row{ display:flex; gap:18px; justify-content:space-between; align-items:center; margin-top:20px }
+  .contact-item{ flex:1; padding:22px; border-radius:12px; text-align:center; background: var(--bg-section); box-shadow:0 18px 40px rgba(211,84,0,0.06); transition: transform .24s }
+  .contact-item:hover{ transform: translateY(-8px) }
+  footer{ margin-top:26px; text-align:center; color:var(--text-muted); padding:18px; font-size:13px }
+  @media (max-width:980px){ .about-grid{ flex-direction:column; text-align:center } .about-text{ text-align:center } .project-card{ width:100% } .navlinks{ display:none } .contact-row{ flex-direction:column; gap:12px } #home{ padding:80px 18px } .popup{ font-size:12px } }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="navbar">
+  <div class="brand">
+    <div class="logo">HP</div>
+    <div>
+      <div class="title">Hitanshu Prakash Patel</div>
+      <div class="subtitle">B.Tech • Computer Engineering • VJTI</div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px">
+    <div class="navlinks">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <div style="font-weight:700;color:var(--text-muted);font-size:13px">Theme</div>
+      <div class="switch" id="themeSwitch"><div class="knob"></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+<!-- HOME -->
+<section id="home">
+  <div class="waves">
+    <div class="wave layer1"></div>
+    <div class="wave layer2"></div>
+    <div class="wave layer3"></div>
+  </div>
+  <h1><span class="glitter">👋 Hi — I'm</span> <strong style="font-size:36px">Hitanshu Prakash Patel</strong></h1>
+  <p class="lead">Currently studying <strong>Computer Engineering</strong> at <strong>VJTI</strong>. I love coding, watching/playing sports, exploring space theory and gaming.</p>
+  <div class="emoji-row">
+    <div class="emoji" data-key="cricket">🏏
+      <div class="popup" id="pop-cricket">I love playing cricket and follow matches closely — strategy, batting & fielding excite me.</div>
+    </div>
+    <div class="emoji" data-key="football">⚽
+      <div class="popup" id="pop-football">I enjoy watching football and studying match tactics and team dynamics.</div>
+    </div>
+    <div class="emoji" data-key="coding">💻
+      <div class="popup" id="pop-coding">Coding is my passion — building web apps, solving problems, and exploring image processing & ML.</div>
+    </div>
+    <div class="emoji" data-key="space">🚀
+      <div class="popup" id="pop-space">I am curious about space theory and astrophysics — I read and learn about the universe often.</div>
+    </div>
+    <div class="emoji" data-key="gaming">🎮
+      <div class="popup" id="pop-gaming">Gaming is a fun way to relax and study real-time systems, UI, and strategy design.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="photo"><img src="hitanshu.jpg" alt="Hitanshu Prakash Patel"></div>
+    <div class="about-text">
+      <h2><span class="highlight-line">About Me</span></h2>
+      <p class="lead" style="margin-top:8px"><strong class="glitter">Hitanshu Prakash Patel</strong> — Computer Engineering student at <strong>VJTI</strong>, Mumbai.<br><span class="kv">MHT-CET: <strong>97.46 percentile</strong> • 10th: <strong>82.6%</strong></span></p>
+      <div style="margin-top:14px">
+        <div class="kv"><strong>Interests:</strong> Coding, Image Processing, Space theory, Cricket & Football</div>
+        <div class="kv"><strong>Hobbies:</strong> Playing cricket 🏏, watching football ⚽, reading about astrophysics, gaming 🎮</div>
+      </div>
+      <div style="margin-top:12px">
+        <div style="font-weight:800;color:var(--text-primary);margin-bottom:8px">Technical Skills</div>
+        <div class="skill-pills">
+          <div class="pill">C++</div>
+          <div class="pill">Java</div>
+          <div class="pill">Python</div>
+          <div class="pill">Data Structures & Algorithms</div>
+          <div class="pill">OpenCV</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <h2>Projects</h2>
+  <div class="project-container">
+    <div class="project-card">
+      <h3>Image Vision V Processing</h3>
+      <p>A full image-processing pipeline: preprocessing, restoration, enhancement, feature extraction. Prototype tools: Python, OpenCV, NumPy.</p>
+      <div class="pdf-row">
+        <label>Attach PDF:</label>
+        <input id="pdf1" type="file" accept=".pdf">
+        <div id="pdf1Link" class="pdf-box"></div>
+      </div>
+    </div>
+    <div class="project-card">
+      <h3>Edusphere — Online Learning Platform</h3>
+      <p>Edusphere is a learner-centric marketplace for courses, emphasizing data persistence and reliable UX.</p>
+      <div class="pdf-row">
+        <label>Attach PDF:</label>
+        <input id="pdf2" type="file" accept=".pdf">
+        <div id="pdf2Link" class="pdf-box"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <h2>Contact</h2>
+  <div class="contact-row">
+    <a class="contact-item" href="mailto:hppatel_b23@ce.vjti.ac.in">✉️ hppatel_b23@ce.vjti.ac.in</a>
+    <a class="contact-item" href="https://github.com/Hitanshu18" target="_blank">💻 github.com/Hitanshu18</a>
+    <a class="contact-item" href="https://www.linkedin.com/in/hitanshu-patel-a369962b1" target="_blank">🔗 linkedin.com/in/hitanshu-patel-a369962b1</a>
+  </div>
+</section>
+
+<footer><small>© 2025 Hitanshu Prakash Patel — GUI Design & Aesthetics</small></footer>
+</div>
+
+<script>
+  // Theme toggle
+  const themeSwitch = document.getElementById('themeSwitch');
+  if(localStorage.getItem('hp_theme_dark')==='true'){ document.body.classList.add('dark'); themeSwitch.querySelector('.knob').style.left='32px'; }
+  themeSwitch.addEventListener('click', ()=>{
+    const dark = document.body.classList.toggle('dark');
+    themeSwitch.querySelector('.knob').style.left = dark?'32px':'4px';
+    localStorage.setItem('hp_theme_dark', dark);
+  });
+
+  // Emoji popups
+  document.querySelectorAll('.emoji').forEach(e=>{
+    const popup = e.querySelector('.popup');
+    e.addEventListener('mouseenter', ()=> popup.classList.add('show'));
+    e.addEventListener('mouseleave', ()=> popup.classList.remove('show'));
+    e.addEventListener('click', (ev)=>{
+      ev.stopPropagation();
+      document.querySelectorAll('.popup').forEach(p=>{ if(p!==popup) p.classList.remove('show') });
+      popup.classList.toggle('show');
+      clearTimeout(popup._t);
+      popup._t = setTimeout(()=>popup.classList.remove('show'), 9000);
+    });
+  });
+  document.addEventListener('click', ()=> document.querySelectorAll('.popup').forEach(p=>p.classList.remove('show')));
+
+  // PDF upload with cancel
+  function handlePdf(inputId, containerId){
+    const input = document.getElementById(inputId);
+    const container = document.getElementById(containerId);
+    input.addEventListener('change', e=>{
+      const file = e.target.files[0];
+      if(!file) return;
+      const url = URL.createObjectURL(file);
+      container.innerHTML = `<a href="${url}" download="${file.name}" title="${file.name}">📄 ${file.name}</a><button type="button" onclick="removePdf('${inputId}','${containerId}')">✖</button>`;
+    });
+  }
+  function removePdf(inputId, containerId){
+    document.getElementById(inputId).value="";
+    document.getElementById(containerId).innerHTML="";
+  }
+  handlePdf('pdf1','pdf1Link');
+  handlePdf('pdf2','pdf2Link');
+
+  // Smooth scroll
+  document.querySelectorAll('.navlinks a').forEach(a=>{
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      const id = this.getAttribute('href').slice(1);
+      const el = document.getElementById(id);
+      if(!el) return;
+      const y = el.getBoundingClientRect().top + window.scrollY - 92;
+      window.scrollTo({top:y, behavior:'smooth'});
+    });
+  });
+
+  // Active nav highlight
+  const navLinks = Array.from(document.querySelectorAll('.navlinks a'));
+  const sections = Array.from(document.querySelectorAll('section'));
+  function updateActive(){
+    const top = window.scrollY + 120;
+    for(let i=sections.length-1;i>=0;i--){
+      if(top >= sections[i].offsetTop){
+        navLinks.forEach(n=>n.classList.remove('active'));
+        const link = document.querySelector(`.navlinks a[href="#${sections[i].id}"]`);
+        if(link) link.classList.add('active');
+        break;
+      }
+    }
+  }
+  window.addEventListener('scroll', updateActive);
+  window.addEventListener('load', updateActive);
+</script>
+</body>
+</html>
